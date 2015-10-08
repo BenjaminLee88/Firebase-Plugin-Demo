@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.ckc.cordova.plugins.firebase"
+    version="1.0.0">
+
+    <name>FireBasePlugin</name>
+    <description>You can use the FireBase plugin to use Disk Persistensy Feature of Firebase.</description>
+    <license>MIT</license>
+    <author>LSH</author>
+    <keywords>Phonegap, Firebase, Disk Persistensy, iOS</keywords>
+
+    <repo>https://github.com/ersin88888/FirebasePlugin.git</repo>
+    <issue>https://github.com/ersin88888/FirebasePlugin/issues</issue>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <js-module src="www/firebase.js" name="FireBase">
+        <clobbers target="com.ckc.cordova.plugins.firebase" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <!-- Cordova >= 2.8 -->
+        <config-file target="config.xml" parent="/*">
+            <feature name="FireBase">
+                <param name="ios-package" value="CDVFirebase" />
+            </feature>
+        </config-file>
+
+        <!-- <resource-file src="src/ios/Firebase.framework" /> -->
+        <!-- <resource-file src="src/ios/Firebase.framework" /> -->
+
+        <header-file src="src/ios/FireBase.h" />
+        <source-file src="src/ios/FireBase.m" />
+
+        <framework src="libicucore.dylib" />
+        <framework src="libc++.dylib" />
+        <framework src="CFNetwork.framework" />
+        <framework src="Security.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="src/ios/Firebase.framework" custom="true" />
+    </platform>
+</plugin>
