@@ -31,6 +31,7 @@ var app = {
         document.getElementById('disable_persistency').addEventListener('click', this.disablePersistence, false);
         document.getElementById('test_read').addEventListener('click', this.readData, false);
         document.getElementById('test_write').addEventListener('click', this.writeData, false);
+        document.getElementById('test_query').addEventListener('click', this.testQuery, false);
     },
     // deviceready Event Handler
     //
@@ -102,19 +103,74 @@ var app = {
     },
 
     writeData: function() {
-        var firebase = cordova.require("cordova/plugin/FireBase");
+        // var firebase = cordova.require("cordova/plugin/FireBase");
 
-        firebase.init('demobenjamin', function(success) {
-            var testObj = { 'string': 'stringValue', 'int': 5, 'array': ['ele1', 'ele2'], 'object': {'key1': 'value1'} };
-            firebase.writeData(testObj, function(success) {
-                alert("writeData success");
+        // firebase.init('demobenjamin', function(success) {
+        //     var testObj = { 'string': 'stringValue', 'int': 5, 'array': ['ele1', 'ele2'], 'object': {'key1': 'value1'} };
+        //     firebase.writeData(testObj, function(success) {
+        //         alert("writeData success");
+        //     }, function(fail) {
+        //         alert("writeData failed: " + fail);
+        //     });
+        //   }, function(fail) {
+        //     alert("init failed: " + fail);
+        //   }
+        // );
+        var firebase1 = cordova.require("cordova/plugin/FireBase");
+
+        firebase1.init('demobenjamin', function(success) {
+            var testObj = { 'string': 'stringValue1', 'int': 6, 'array1': ['ele1', 'ele2'], 'object1': {'key1': 'value1'}, '11' : 'ba', '12' : 'ab', '23': 'aa' , '22': 'bb' };
+            firebase1.writeValueToURL('https://demobenjamin.firebaseio.com', testObj, function(success) {
+                alert("writeData__ success");
             }, function(fail) {
-                alert("writeData failed: " + fail);
+                alert("writeData__ failed: " + fail);
             });
           }, function(fail) {
             alert("init failed: " + fail);
           }
         );
+    },
 
+    testQuery: function() {
+        var firebase = cordova.require("cordova/plugin/FireBase");
+
+        var strURL = 'https://dinosaur-facts.firebaseio.com/dinosaurs';//'https://demobenjamin.firebaseio.com';
+        // var queryInfo = {
+        //     order: {
+        //         by: 'value', //'key', value' or nil
+        //         field: 'height'
+        //     },
+        //     search: {   
+        //         type: 'starting', //'starting', 'ending', 'equal' or nil
+        //         value: 3,   
+        //         child: ''  //if this key is nil or "", doesn't use.
+        //     },
+        //     limit: {
+        //         at: 'last', //'first', last' or nil
+        //         num: 2
+        //     }
+        // };
+        var queryInfo = {
+            order: {
+                by: 'key', //'key', value' or nil
+                field: 'height'
+            },
+            search: {   
+                type: 'starting', //'starting', 'ending', 'equal' or nil
+                value: '',   
+                child: ''  //if this key is nil or "", doesn't use.
+            },
+            limit: {
+                at: 'last', //'first', last' or nil
+                num: 3
+            }
+        };
+
+        firebase.querySearch(strURL, queryInfo, function(success) {
+            alert("querySearch success");
+            console.log(success);
+        }, function(fail) {
+            alert("querySearch failed: " + fail);
+        });
     }
 };
