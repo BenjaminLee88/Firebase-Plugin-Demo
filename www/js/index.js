@@ -91,7 +91,7 @@ var app = {
         firebase.init('demobenjamin', function(success) {
             firebase.readData(function(success) {
                 console.log(success);
-                alert(success);
+                alert("readData success: " + JSON.stringify(success));
             }, function(fail) {
                 alert("readData failed: " + fail);
             });
@@ -119,11 +119,11 @@ var app = {
         var firebase1 = cordova.require("cordova/plugin/FireBase");
 
         firebase1.init('demobenjamin', function(success) {
-            var testObj = { 'string': 'stringValue1', 'int': 6, 'array1': ['ele1', 'ele2'], 'object1': {'key1': 'value1'}, '11' : 'ba', '12' : 'ab', '23': 'aa' , '22': 'bb' };
+            var testObj = { 'string': 'stringValue1', 'int': 6, 'array1': ['ele1', 'ele2'], 'object1': {'key1': 'value1'}, 'Z11' : 'ba', 'Z12' : 'ab', 'Z23': 'aa' , 'Z22': 'bb' };
             firebase1.writeValueToURL('https://demobenjamin.firebaseio.com', testObj, function(success) {
-                alert("writeData__ success");
+                alert("writeValueToURL success");
             }, function(fail) {
-                alert("writeData__ failed: " + fail);
+                alert("writeValueToURL failed: " + fail);
             });
           }, function(fail) {
             alert("init failed: " + fail);
@@ -167,7 +167,7 @@ var app = {
         };
 
         firebase.querySearch(strURL, queryInfo, function(success) {
-            alert("querySearch success");
+            alert("querySearch success :" + JSON.stringify(success));
             console.log(success);
         }, function(fail) {
             alert("querySearch failed: " + fail);
